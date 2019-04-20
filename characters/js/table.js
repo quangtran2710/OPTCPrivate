@@ -49,7 +49,7 @@ angular.module('optc') .run(function($rootScope, $timeout, $storage, MATCHER_IDS
             { title: 'Cost' },
             { title: 'Max CD' },
 			{ title: 'Current CD' },
-			{ title: 'Min CD' },
+			{ title: 'Min LB CD' },
             { title: 'Stars' },
             { title: 'CL', orderable: false }
         ];
@@ -294,7 +294,7 @@ angular.module('optc') .run(function($rootScope, $timeout, $storage, MATCHER_IDS
             x.maxATK,
             x.maxRCV,
             x.cost,
-            x.slots,
+            x.limitSlot,
             x.stars,
             '',
             x.number
