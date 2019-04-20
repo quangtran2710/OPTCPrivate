@@ -47,7 +47,9 @@ angular.module('optc') .run(function($rootScope, $timeout, $storage, MATCHER_IDS
             { title: 'ATK' },
             { title: 'RCV' },
             { title: 'Cost' },
-            { title: 'Slots' },
+            { title: 'Max CD' },
+			{ title: 'Current CD' },
+			{ title: 'Min CD' },
             { title: 'Stars' },
             { title: 'CL', orderable: false }
         ];
