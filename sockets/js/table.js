@@ -43,23 +43,14 @@ angular.module('optc') .run(function($rootScope, $timeout, $storage, MATCHER_IDS
             { title: 'Name', render: addImage },
             { title: 'Type' },
             { title: 'Class' },
-            { title: 'HP' },
-            { title: 'ATK' },
-            { title: 'RCV' },
-            { title: 'Cost' },
-            { title: 'Slots' },
-            { title: 'Stars' },
-            { title: 'CL', orderable: false }
+            { title: 'Heal' },
+            { title: 'Despair' },
+            { title: 'Bind' },
+            { title: 'Special' },
+            { title: 'Orb' },
+            { title: 'Defense' },
+            { title: 'Meat' }
         ];
-        additionalColumns.forEach(function(x) {
-            var title = x
-                .replace(/Minimum cooldown/,'Min CD')
-                .replace(/Minimum Limit Break cooldown/,'Min LB CD')
-                .replace(/Initial cooldown/,'Init. CD')
-                .replace(/Initial Limit Break cooldown/,'Init. LB CD')
-                .replace(/MAX EXP/,'MAX EXP');
-            result.splice(result.length-1, 0, { title: title, type: 'num-string' });
-        });
         return result;
     };
 
@@ -288,47 +279,16 @@ angular.module('optc') .run(function($rootScope, $timeout, $storage, MATCHER_IDS
             x.type,
             
         x.class.constructor == Array ? x.class.join(', ') : x.class,
-            x.maxHP,
-            x.maxATK,
-            x.maxRCV,
-            x.cost,
-            x.slots,
-            x.stars,
+            x.Heal,
+            x.Despair,
+            x.Bind,
+            x.Special,
+            x.Orb,
+            x.Defense,
+			X.Meat,
             '',
             x.number
         ];
-        additionalColumns.forEach(function(c,n) {
-            var temp = 0;
-            if (c == 'HP/ATK') temp = Math.round(x.maxHP / x.maxATK * 100) / 100;
-            else if (c == 'HP/RCV') temp = Math.round(x.maxHP / x.maxRCV * 100) / 100;
-            else if (c == 'ATK/RCV') temp = Math.round(x.maxATK / x.maxRCV * 100) / 100;
-            else if (c == 'ATK/CMB') temp = Math.round(x.maxATK / x.combo * 100) / 100;
-            else if (c == 'ATK/cost') temp = Math.round(x.maxATK / x.cost * 100) / 100;
-            else if (c == 'HP/cost') temp = Math.round(x.maxHP / x.cost * 100) / 100;
-            else if (c == 'CMB') temp = x.combo;
-            else if (c == 'MAX EXP') temp = x.maxEXP;
-            else if (c == 'Limit Break HP') temp = x.limitHP;
-            else if (c == 'Limit Break ATK') temp = x.limitATK;
-            else if (c == 'Limit Break RCV') temp = x.limitRCV;
-            else if (c == 'Limit Break Slots') temp = x.limitSlot;
-            else if (c == 'Minimum cooldown' || c == 'Initial cooldown') { 
-                var d = cooldowns[x.number];
-                if (!d) temp = 'N/A';
-                else if (c == 'Minimum cooldown' && d.constructor == Array) temp = d[1];
-                else if (c == 'Initial cooldown') temp = (d.constructor == Array ? d[0] : d);
-                else temp = 'Unknown';
-            }
-            else if (c == 'Minimum Limit Break cooldown' || c == 'Initial Limit Break cooldown') { 
-                var d = cooldowns[x.number];
-                if (!d) temp = 'N/A';
-                else if (c == 'Minimum Limit Break cooldown' && d.constructor == Array) temp = (d[1] - x.limitCD);
-                else if (c == 'Initial Limit Break cooldown') temp = (d.constructor == Array ? (d[0] - x.limitCD) : (d - x.limitCD));
-                else temp = 'Unknown';
-            }
-            if (temp && temp.constructor != String && !isNaN(temp) && !isFinite(temp)) temp = '&#8734;';
-            if (temp && temp.constructor != String && isNaN(temp)) temp = 0;
-            result.splice(result.length-2, 0, temp);
-        });
         return result;
     });
 
